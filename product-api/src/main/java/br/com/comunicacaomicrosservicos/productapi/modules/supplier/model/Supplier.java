@@ -1,6 +1,5 @@
 package br.com.comunicacaomicrosservicos.productapi.modules.supplier.model;
 
-import br.com.comunicacaomicrosservicos.productapi.modules.category.model.Category;
 import br.com.comunicacaomicrosservicos.productapi.modules.supplier.dto.SupplierRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

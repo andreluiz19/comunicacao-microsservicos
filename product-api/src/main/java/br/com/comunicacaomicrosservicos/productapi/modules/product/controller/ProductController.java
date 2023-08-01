@@ -1,8 +1,7 @@
 package br.com.comunicacaomicrosservicos.productapi.modules.product.controller;
 
 import br.com.comunicacaomicrosservicos.productapi.config.exception.SuccessResponse;
-import br.com.comunicacaomicrosservicos.productapi.modules.product.dto.ProductRequest;
-import br.com.comunicacaomicrosservicos.productapi.modules.product.dto.ProductResponse;
+import br.com.comunicacaomicrosservicos.productapi.modules.product.dto.*;
 import br.com.comunicacaomicrosservicos.productapi.modules.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,4 +54,14 @@ public class ProductController {
         return productService.update(request, id);
     }
 
+    @PostMapping("check-stock")
+    public SuccessResponse checkProductsStock(@RequestBody ProductCheckStockRequest request) {
+        return productService.checkProductsStock(request);
+    }
+    /*
+    @GetMapping("{id}/sales")
+    public ProductSalesResponse findProductSales(@PathVariable Integer id) {
+        return productService.findProductSales(id);
+    }
+    */
 }

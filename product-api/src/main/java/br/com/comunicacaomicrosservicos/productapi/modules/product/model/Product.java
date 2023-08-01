@@ -45,9 +45,7 @@ public class Product {
         createdAt = LocalDateTime.now();
     }
 
-    public static Product of(ProductRequest request,
-                             Category category,
-                             Supplier supplier) {
+    public static Product of(ProductRequest request, Category category, Supplier supplier) {
         return Product
                 .builder()
                 .name(request.getName())
@@ -55,5 +53,9 @@ public class Product {
                 .category(category)
                 .supplier(supplier)
                 .build();
+    }
+
+    public void updateStock(Integer quantity) {
+        quantityAvailable = quantityAvailable - quantity;
     }
 }
