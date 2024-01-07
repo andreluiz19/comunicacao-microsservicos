@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -16,11 +15,12 @@ import org.springframework.stereotype.Component;
 public class ProductStockListener {
 
     private final ProductService productService;
+    private final ObjectMapper objectMapper;
 
     @RabbitListener(queues = "${app-config.rabbit.queue.product-stock}")
     public void recieveProductStockMessage(ProductStockDTO product) throws JsonProcessingException {
         log.info("Recieving messaga with data: {} and transactionID: {}",
-                new ObjectMapper().writeValueAsString(product),
+                objectMapper.writeValueAsString(product),
                 product.getTransactionid());
         productService.updateProductStock(product);
     }

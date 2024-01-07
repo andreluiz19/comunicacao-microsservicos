@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 public class JwtResponse {
 
     private Integer id;
-
     private String name;
-
     private String email;
 
     public static JwtResponse getUser(Claims jwtClaims) {

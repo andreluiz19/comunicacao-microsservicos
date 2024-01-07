@@ -17,9 +17,14 @@ createInitialData();
 connectRabbitMq();
 
 app.use(express.json());
-app.use(tracing);
-app.use(checkToken);
-app.use(orderRoutes);
+
+app.get("/api/status", async (req, res) => {
+    return res.status(200).json({
+        service: "Sales-API",
+        status: "up",
+        httpStatus: 200,
+    });
+});
 
 app.get("/test", (req, res) => {
     try {
@@ -44,13 +49,9 @@ app.get("/test", (req, res) => {
     }
 });
 
-app.get("/api/status", async (req, res) => {
-    return res.status(200).json({
-        service: "Sales-API",
-        status: "up",
-        httpStatus: 200,
-    });
-});
+app.use(tracing);
+app.use(checkToken);
+app.use(orderRoutes);
 
 app.listen(PORT, () => {
     console.info(`Server started successfully at port ${PORT}.`);
