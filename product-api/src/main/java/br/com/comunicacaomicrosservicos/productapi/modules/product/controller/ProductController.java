@@ -3,17 +3,18 @@ package br.com.comunicacaomicrosservicos.productapi.modules.product.controller;
 import br.com.comunicacaomicrosservicos.productapi.config.exception.SuccessResponse;
 import br.com.comunicacaomicrosservicos.productapi.modules.product.dto.*;
 import br.com.comunicacaomicrosservicos.productapi.modules.product.service.ProductService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/product")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @PostMapping
     public ProductResponse save(@RequestBody ProductRequest request) {
@@ -58,10 +59,9 @@ public class ProductController {
     public SuccessResponse checkProductsStock(@RequestBody ProductCheckStockRequest request) {
         return productService.checkProductsStock(request);
     }
-    /*
+
     @GetMapping("{id}/sales")
     public ProductSalesResponse findProductSales(@PathVariable Integer id) {
         return productService.findProductSales(id);
     }
-    */
 }

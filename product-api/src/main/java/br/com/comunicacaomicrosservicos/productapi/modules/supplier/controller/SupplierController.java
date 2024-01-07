@@ -4,17 +4,18 @@ import br.com.comunicacaomicrosservicos.productapi.config.exception.SuccessRespo
 import br.com.comunicacaomicrosservicos.productapi.modules.supplier.dto.SupplierRequest;
 import br.com.comunicacaomicrosservicos.productapi.modules.supplier.dto.SupplierResponse;
 import br.com.comunicacaomicrosservicos.productapi.modules.supplier.service.SupplierService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/supplier")
 public class SupplierController {
 
-    @Autowired
-    private SupplierService supplierService;
+    private final SupplierService supplierService;
 
     @PostMapping
     public SupplierResponse save(@RequestBody SupplierRequest request) {

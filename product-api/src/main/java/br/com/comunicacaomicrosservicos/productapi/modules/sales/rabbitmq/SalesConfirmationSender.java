@@ -2,6 +2,8 @@ package br.com.comunicacaomicrosservicos.productapi.modules.sales.rabbitmq;
 
 import br.com.comunicacaomicrosservicos.productapi.modules.sales.dto.SalesConfirmationDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Slf4j
+@RequiredArgsConstructor // Pega apenas campos como final. @AllArgsConstructor pega todos os atributos disponíveis
 @Component
 public class SalesConfirmationSender {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     @Value("${app-config.rabbit.exchange.product}")
     private String productTopicExchange;
