@@ -11,24 +11,14 @@ import {
 
 import { RABBIT_MQ_URL } from "../constants/secrets.js";
 
-const FIVE_SECONDS = 5000;
-const HALF_MINUTE = 30000;
-const CONTAINER_ENV = "container";
+const TWO_SECONDS = 2000;
 
 export async function connectRabbitMq() {
-    const env = process.env.NODE_ENV;
-    if (CONTAINER_ENV === env) {
-        console.info("Waiting for RabbitMQ to start...");
-        setInterval(() => {
-            connectRabbitMqAndCreateQueues();
-        }, HALF_MINUTE);
-    } else {
-        connectRabbitMqAndCreateQueues();
-    }
+    connectRabbitMqAndCreateQueues();
 }
 
 function connectRabbitMqAndCreateQueues() {
-    amqp.connect(RABBIT_MQ_URL, (error, connection) => {
+    amqp.connect(RABBIT_MQ_URL, { timeout: 180000 }, (error, connection) => {
         if (error) {
             throw error;
         }
@@ -47,10 +37,12 @@ function connectRabbitMqAndCreateQueues() {
         );
         console.info("Queues and Topics were defined.");
         setTimeout(function () {
-            listenToSalesConfirmationQueue();
             connection.close();
-        }, 2000);
+        }, TWO_SECONDS);
     });
+    setTimeout(function () {
+        listenToSalesConfirmationQueue();
+    }, TWO_SECONDS);
 }
 
 function createQueue(connection, queue, routingKey, topic) {
