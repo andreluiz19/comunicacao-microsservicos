@@ -3,3 +3,4 @@ debug.log
 yarn.lock
 yarn-error.log
 *.zip
+.vscode
